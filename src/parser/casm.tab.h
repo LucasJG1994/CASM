@@ -71,9 +71,10 @@ extern int yydebug;
      TK_RB = 272,
      TK_COMMA = 273,
      TK_ASSIGN = 274,
-     TK_LABEL = 275,
-     TK_REG = 276,
-     TK_NUM = 277
+     TK_ENP = 275,
+     TK_LABEL = 276,
+     TK_REG = 277,
+     TK_NUM = 278
    };
 #endif
 

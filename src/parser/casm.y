@@ -4,12 +4,15 @@
 
 	#define REG   1
 	#define LABEL 2
+	#define CONST 3
 
 	#define SR(V) V.type = REG
 	#define SL(V) V.type = LABEL
+	#define SC(V) V.type = CONST
 
 	#define IR(V) V.type == REG
 	#define IL(V) V.type == LABEL
+	#define IC(V) V.type == CONST
 
 	#define TP(A, B) ( A | ( B << 8 ) )
 
@@ -45,6 +48,7 @@
 %token TK_LB TK_RB
 %token TK_COMMA
 %token TK_ASSIGN
+%token TK_ENP
 
 %token <val> TK_LABEL
 %token <val> TK_REG
@@ -106,10 +110,25 @@ mnemonics:
 				fw_write("@%d", $A.ival);
 				fw_write("M=D");
 				break;
+			case TP(REG, CONST):
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
+				fw_write("@%d", $A.ival);
+				fw_write("M=D");
+				break;
 			case TP(LABEL, REG):
 				fw_write("@%d", $B.ival);
 				fw_write("D=M");
 				
+				if($A.ival == -1) fw_write("@%s", $A.sval);
+				else              fw_write("@%d", $A.ival);
+
+				fw_write("M=D");
+				break;
+			case TP(LABEL, CONST):
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
+
 				if($A.ival == -1) fw_write("@%s", $A.sval);
 				else              fw_write("@%d", $A.ival);
 
@@ -186,9 +205,26 @@ mnemonics:
 				fw_write("A=M");
 				fw_write("M=D");
 				break;
+			case TP(REG, CONST):
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
+				fw_write("@%d", $A.ival);
+				fw_write("A=M");
+				fw_write("M=D");
+				break;
 			case TP(LABEL, REG):
 				fw_write("@%d", $B.ival);
 				fw_write("D=M");
+				
+				if($A.ival == -1) fw_write("@%s", $A.sval);
+				else              fw_write("@%d", $A.ival);
+
+				fw_write("A=M");
+				fw_write("M=D");
+				break;
+			case TP(LABEL, CONST):
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				
 				if($A.ival == -1) fw_write("@%s", $A.sval);
 				else              fw_write("@%d", $A.ival);
@@ -268,14 +304,22 @@ mnemonics:
 
 	| ADD operand[A] TK_COMMA operand[B] TK_COMMA TK_NUM[N]  {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
+		
 		fw_write("@%d", $N.ival);
 		fw_write("D=D+A");
 		
@@ -291,24 +335,36 @@ mnemonics:
 	}
 	| ADD operand[A] TK_COMMA operand[B] TK_COMMA operand[C] {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
-
 		switch($C.type){
-			case REG: fw_write("@%d", $C.ival); break;
+			case REG:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D+M");
+				break;
 			case LABEL:
 				if($C.ival == -1) fw_write("@%s", $C.sval);
 				else              fw_write("@%d", $C.ival);
+				fw_write("D=D+M");
+				break;
+			case CONST:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D+A");
 				break;
 		}
-
-		fw_write("D=D+M");
 
 		switch($A.type){
 			case REG: fw_write("@%d", $A.ival); break;
@@ -323,14 +379,22 @@ mnemonics:
 
 	| SUB operand[A] TK_COMMA operand[B] TK_COMMA TK_NUM[N]  {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
+		
 		fw_write("@%d", $N.ival);
 		fw_write("D=D-A");
 		
@@ -346,14 +410,22 @@ mnemonics:
 	}
 	| SUB operand[A] TK_COMMA TK_NUM[N]  TK_COMMA operand[C] {
 		switch($C.type){
-			case REG: fw_write("@%d", $C.ival); break;
+			case REG:
+				fw_write("@%d", $C.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($C.ival == -1) fw_write("@%s", $C.sval);
 				else              fw_write("@%d", $C.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $C.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
+		
 		fw_write("@%d", $N.ival);
 		fw_write("D=A-D");
 		
@@ -369,24 +441,36 @@ mnemonics:
 	}
 	| SUB operand[A] TK_COMMA operand[B] TK_COMMA operand[C] {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
-
 		switch($C.type){
-			case REG: fw_write("@%d", $C.ival); break;
+			case REG:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D-M");
+				break;
 			case LABEL:
 				if($C.ival == -1) fw_write("@%s", $C.sval);
 				else              fw_write("@%d", $C.ival);
+				fw_write("D=D-M");
+				break;
+			case CONST:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D-A");
 				break;
 		}
-
-		fw_write("D=D-M");
 
 		switch($A.type){
 			case REG: fw_write("@%d", $A.ival); break;
@@ -401,14 +485,22 @@ mnemonics:
 
 	| AND operand[A] TK_COMMA operand[B] TK_COMMA TK_NUM[N]  {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
+		
 		fw_write("@%d", $N.ival);
 		fw_write("D=D&A");
 		
@@ -424,24 +516,36 @@ mnemonics:
 	}
 	| AND operand[A] TK_COMMA operand[B] TK_COMMA operand[C] {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
-
 		switch($C.type){
-			case REG: fw_write("@%d", $C.ival); break;
+			case REG:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D&M");
+				break;
 			case LABEL:
 				if($C.ival == -1) fw_write("@%s", $C.sval);
 				else              fw_write("@%d", $C.ival);
+				fw_write("D=D&M");
+				break;
+			case CONST:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D&A");
 				break;
 		}
-
-		fw_write("D=D&M");
 
 		switch($A.type){
 			case REG: fw_write("@%d", $A.ival); break;
@@ -456,14 +560,22 @@ mnemonics:
 
 	| OR  operand[A] TK_COMMA operand[B] TK_COMMA TK_NUM[N]  {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
+		
 		fw_write("@%d", $N.ival);
 		fw_write("D=D|A");
 		
@@ -479,24 +591,36 @@ mnemonics:
 	}
 	| OR  operand[A] TK_COMMA operand[B] TK_COMMA operand[C] {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=M");
+				break;
+			case CONST:
+				fw_write("@%d", $B.ival);
+				fw_write("D=A");
 				break;
 		}
 
-		fw_write("D=M");
-
 		switch($C.type){
-			case REG: fw_write("@%d", $C.ival); break;
+			case REG:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D|M");
+				break;
 			case LABEL:
 				if($C.ival == -1) fw_write("@%s", $C.sval);
 				else              fw_write("@%d", $C.ival);
+				fw_write("D=D|M");
+				break;
+			case CONST:
+				fw_write("@%d", $C.ival);
+				fw_write("D=D|A");
 				break;
 		}
-
-		fw_write("D=D|M");
 
 		switch($A.type){
 			case REG: fw_write("@%d", $A.ival); break;
@@ -525,14 +649,20 @@ mnemonics:
 	}
 	| NOT operand[A] TK_COMMA operand[B] {
 		switch($B.type){
-			case REG: fw_write("@%d", $B.ival); break;
+			case REG:
+				fw_write("@%d", $B.ival);
+				fw_write("D=!M");
+				break;
 			case LABEL:
 				if($B.ival == -1) fw_write("@%s", $B.sval);
 				else              fw_write("@%d", $B.ival);
+				fw_write("D=!M");
+				break;
+			case CONST: 
+				fw_write("@%d", $B.ival);
+				fw_write("D=!A");
 				break;
 		}
-
-		fw_write("D=!M");
 
 		switch($A.type){
 			case REG: fw_write("@%d", $A.ival); break;
@@ -581,5 +711,10 @@ operand:
 		$$.ival = st_resolve($L.sval);
 		$$.sval = $L.sval;
 		SL($$);
+	}
+	| TK_ENP TK_LABEL[L] {
+		$$.ival = st_resolve($L.sval);
+		$$.sval = $L.sval;
+		SC($$);
 	}
 	;

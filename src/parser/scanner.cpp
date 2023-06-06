@@ -85,6 +85,7 @@ extern "C" int yylex() {
 			case ']': { adv(); return TK_RB; }
 			case '=': { adv(); return TK_ASSIGN; }
 			case ',': { adv(); return TK_COMMA; }
+			case '&': { adv(); return TK_ENP; }
 			case ';': {
 				while (match('\n') == 0) {
 					if(end()) break;
