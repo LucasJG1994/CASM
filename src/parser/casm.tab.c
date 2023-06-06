@@ -418,7 +418,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  35
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   116
+#define YYLAST   115
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  24
@@ -495,9 +495,9 @@ static const yytype_int8 yyrhs[] =
        6,    27,    18,    27,    18,    23,    -1,     6,    27,    18,
       27,    18,    27,    -1,     7,    27,    18,    27,    18,    23,
       -1,     7,    27,    18,    27,    18,    27,    -1,     8,    27,
-      18,    23,    -1,     8,    27,    18,    27,    -1,    10,    21,
-      -1,    11,    21,    -1,    12,    21,    -1,    13,    21,    -1,
-      14,    21,    -1,    15,    21,    -1,     9,    21,    -1,    22,
+      18,    23,    -1,     8,    27,    18,    27,    -1,    10,    27,
+      -1,    11,    27,    -1,    12,    27,    -1,    13,    27,    -1,
+      14,    27,    -1,    15,    27,    -1,     9,    27,    -1,    22,
       -1,    21,    -1,    20,    21,    -1
 };
 
@@ -506,8 +506,8 @@ static const yytype_uint16 yyrline[] =
 {
        0,    61,    61,    62,    63,    67,    68,    70,    84,   105,
      158,   199,   258,   305,   336,   380,   411,   442,   486,   517,
-     561,   592,   636,   650,   678,   682,   686,   690,   694,   698,
-     702,   709,   710,   715
+     561,   592,   636,   650,   678,   687,   696,   705,   714,   723,
+     732,   744,   745,   750
 };
 #endif
 
@@ -575,23 +575,23 @@ static const yytype_int8 yydefgoto[] =
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -15
+#define YYPACT_NINF -8
 static const yytype_int8 yypact[] =
 {
-      60,    62,   -14,   -14,   -14,   -14,   -14,    -7,    12,    14,
-      15,    23,    25,    35,    57,    13,   -15,   -14,    56,   -15,
-     -15,    61,    83,    84,    85,    86,    87,   -15,   -15,   -15,
-     -15,   -15,   -15,   -15,    88,   -15,   -15,    63,   -15,   -11,
-     -14,     9,   -14,   -14,    31,   -15,    89,   -14,   -15,   -15,
-      90,    91,    92,    94,    95,   -15,   -15,    27,    97,    65,
-     -14,    69,    73,    77,   -14,   -15,   -15,   -15,   -15,   -15,
-     -15,   -15,   -15,   -15,   -15,   -15,   -15,    98,   -15
+      60,    70,    67,    67,    67,    67,    67,    67,    67,    67,
+      67,    67,    67,    67,    -7,    13,    -8,    67,    12,    -8,
+      -8,    -4,    17,    18,    26,    28,    38,    -8,    -8,    -8,
+      -8,    -8,    -8,    -8,    53,    -8,    -8,    63,    -8,    27,
+      67,     9,    67,    67,    31,    -8,    59,    67,    -8,    -8,
+      61,    91,    92,    93,    94,    -8,    -8,    62,    96,    73,
+      67,    77,    81,    85,    67,    -8,    -8,    -8,    -8,    -8,
+      -8,    -8,    -8,    -8,    -8,    -8,    -8,    97,    -8
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -15,   -15,   101,    -2
+      -8,    -8,   100,    -2
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -600,40 +600,40 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      22,    23,    24,    25,    26,    47,    18,    19,    20,    18,
-      19,    20,    48,    35,    27,    37,     1,     2,     3,     4,
+      22,    23,    24,    25,    26,    27,    28,    29,    30,    31,
+      32,    33,    34,    35,    39,    37,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    18,
-      19,    20,    51,    28,    14,    29,    30,    49,    50,    52,
-      53,    54,    56,    64,    31,    58,    32,    18,    19,    20,
-      65,    18,    19,    20,    55,    66,    33,    69,    70,    72,
+      19,    20,    51,    38,    14,    40,    41,    49,    50,    52,
+      53,    54,    56,    47,    42,    58,    43,    18,    19,    20,
+      48,    18,    19,    20,    55,    66,    44,    69,    70,    72,
       74,    76,    77,     1,     2,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    34,    38,    17,    39,
-      46,    14,    18,    19,    20,    18,    19,    20,    68,    18,
-      19,    20,    71,    18,    19,    20,    73,    18,    19,    20,
-      75,    40,    41,    42,    43,    44,     0,    57,    59,    60,
-      61,    45,    62,    63,    67,    78,    36
+       8,     9,    10,    11,    12,    13,    45,    57,    64,    59,
+      46,    14,    18,    19,    20,    65,    17,    18,    19,    20,
+      18,    19,    20,    18,    19,    20,    68,    18,    19,    20,
+      71,    18,    19,    20,    73,    18,    19,    20,    75,    60,
+      61,    62,    63,    67,    78,    36
 };
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-15)))
+  (!!((Yystate) == (-8)))
 
 #define yytable_value_is_error(Yytable_value) \
   YYID (0)
 
-static const yytype_int8 yycheck[] =
+static const yytype_uint8 yycheck[] =
 {
-       2,     3,     4,     5,     6,    16,    20,    21,    22,    20,
-      21,    22,    23,     0,    21,    17,     3,     4,     5,     6,
+       2,     3,     4,     5,     6,     7,     8,     9,    10,    11,
+      12,    13,    19,     0,    18,    17,     3,     4,     5,     6,
        7,     8,     9,    10,    11,    12,    13,    14,    15,    20,
-      21,    22,    23,    21,    21,    21,    21,    39,    40,    41,
-      42,    43,    44,    16,    21,    47,    21,    20,    21,    22,
-      23,    20,    21,    22,    23,    57,    21,    59,    60,    61,
+      21,    22,    23,    21,    21,    18,    18,    39,    40,    41,
+      42,    43,    44,    16,    18,    47,    18,    20,    21,    22,
+      23,    20,    21,    22,    23,    57,    18,    59,    60,    61,
       62,    63,    64,     3,     4,     5,     6,     7,     8,     9,
-      10,    11,    12,    13,    14,    15,    19,    21,    16,    18,
-      17,    21,    20,    21,    22,    20,    21,    22,    23,    20,
-      21,    22,    23,    20,    21,    22,    23,    20,    21,    22,
-      23,    18,    18,    18,    18,    18,    -1,    18,    18,    18,
-      18,    23,    18,    18,    17,    17,    15
+      10,    11,    12,    13,    14,    15,    23,    18,    16,    18,
+      17,    21,    20,    21,    22,    23,    16,    20,    21,    22,
+      20,    21,    22,    20,    21,    22,    23,    20,    21,    22,
+      23,    20,    21,    22,    23,    20,    21,    22,    23,    18,
+      18,    18,    18,    17,    17,    15
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -642,8 +642,8 @@ static const yytype_uint8 yystos[] =
 {
        0,     3,     4,     5,     6,     7,     8,     9,    10,    11,
       12,    13,    14,    15,    21,    25,    26,    16,    20,    21,
-      22,    27,    27,    27,    27,    27,    27,    21,    21,    21,
-      21,    21,    21,    21,    19,     0,    26,    27,    21,    18,
+      22,    27,    27,    27,    27,    27,    27,    27,    27,    27,
+      27,    27,    27,    27,    19,     0,    26,    27,    21,    18,
       18,    18,    18,    18,    18,    23,    17,    16,    23,    27,
       27,    23,    27,    27,    27,    23,    27,    18,    27,    18,
       18,    18,    18,    18,    16,    23,    27,    17,    23,    27,
@@ -2129,7 +2129,12 @@ yyreduce:
   case 24:
 
     {
-		fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+		switch((yyvsp[(2) - (2)].val).type){
+			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case LABEL:
+				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+		}
 		fw_write("D;JGT");
 	}
     break;
@@ -2137,7 +2142,12 @@ yyreduce:
   case 25:
 
     {
-		fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+		switch((yyvsp[(2) - (2)].val).type){
+			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case LABEL:
+				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+		}
 		fw_write("D;JGE");
 	}
     break;
@@ -2145,7 +2155,12 @@ yyreduce:
   case 26:
 
     {
-		fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+		switch((yyvsp[(2) - (2)].val).type){
+			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case LABEL:
+				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+		}
 		fw_write("D;JLT");
 	}
     break;
@@ -2153,7 +2168,12 @@ yyreduce:
   case 27:
 
     {
-		fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+		switch((yyvsp[(2) - (2)].val).type){
+			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case LABEL:
+				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+		}
 		fw_write("D;JLE");
 	}
     break;
@@ -2161,7 +2181,12 @@ yyreduce:
   case 28:
 
     {
-		fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+		switch((yyvsp[(2) - (2)].val).type){
+			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case LABEL:
+				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+		}
 		fw_write("D;JNE");
 	}
     break;
@@ -2169,7 +2194,12 @@ yyreduce:
   case 29:
 
     {
-		fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+		switch((yyvsp[(2) - (2)].val).type){
+			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case LABEL:
+				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+		}
 		fw_write("D;JEQ");
 	}
     break;
@@ -2177,7 +2207,12 @@ yyreduce:
   case 30:
 
     {
-		fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+		switch((yyvsp[(2) - (2)].val).type){
+			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case LABEL:
+				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
+				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+		}
 		fw_write("0;JMP");
 	}
     break;
