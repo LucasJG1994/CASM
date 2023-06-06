@@ -1,0 +1,10 @@
+screen = 15
+
+mov screen, 16384
+
+loop
+mov [screen], 255
+add screen, screen, 1
+sub r13, 20000, screen
+jne loop
+

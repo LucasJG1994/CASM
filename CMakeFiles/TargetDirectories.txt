@@ -1,0 +1,3 @@
+C:/hack_workspace/CASM/CMakeFiles/casm.dir
+C:/hack_workspace/CASM/CMakeFiles/ALL_BUILD.dir
+C:/hack_workspace/CASM/CMakeFiles/ZERO_CHECK.dir

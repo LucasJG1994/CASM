@@ -1,0 +1,10 @@
+^C:\HACK_WORKSPACE\CASM\CMAKEFILES\582E85FAA7A1979AD8D59CEC73690606\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/hack_workspace/CASM -BC:/hack_workspace/CASM --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/hack_workspace/CASM/casm.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
