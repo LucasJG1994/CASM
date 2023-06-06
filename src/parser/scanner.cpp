@@ -37,7 +37,7 @@ static bool match(char c) { return *cur == c; }
 static bool end() { return *cur == 0; }
 
 static bool is_digit(char c) { return c >= '0' && c <= '9'; }
-static bool is_alpha(char c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_'; }
+static bool is_alpha(char c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || c == '.'; }
 
 static bool is_number(std::string s) {
 	if(s.length() == 0) return false;

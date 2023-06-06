@@ -1,6 +1,4 @@
 ﻿  main.c
-  casm.tab.c
-  Generating Code...
   scanner.cpp
 C:\hack_workspace\CASM\src\parser\scanner.cpp(185,2): warning C4996: 'vsprintf': This function or variable may be unsafe. Consider using vsprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   casm.vcxproj -> C:\hack_workspace\CASM\Debug\casm.exe
