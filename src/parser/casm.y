@@ -684,6 +684,16 @@ mnemonics:
 		}
 		fw_write("D;JGT");
 	}
+	| JGT TK_LB operand[L] TK_RB {
+		switch($L.type){
+			case REG: fw_write("@%d", $L.ival); break;
+			case LABEL:
+				if($L.ival == -1) fw_write("@%s", $L.sval);
+				else              fw_write("@%d", $L.ival);
+		}
+		fw_write("A=M");
+		fw_write("D;JGT");
+	}
 	| JGE operand[L] {
 		switch($L.type){
 			case REG: fw_write("@%d", $L.ival); break;
@@ -691,6 +701,16 @@ mnemonics:
 				if($L.ival == -1) fw_write("@%s", $L.sval);
 				else              fw_write("@%d", $L.ival);
 		}
+		fw_write("D;JGE");
+	}
+	| JGE TK_LB operand[L] TK_RB {
+		switch($L.type){
+			case REG: fw_write("@%d", $L.ival); break;
+			case LABEL:
+				if($L.ival == -1) fw_write("@%s", $L.sval);
+				else              fw_write("@%d", $L.ival);
+		}
+		fw_write("A=M");
 		fw_write("D;JGE");
 	}
 	| JLT operand[L] {
@@ -702,6 +722,16 @@ mnemonics:
 		}
 		fw_write("D;JLT");
 	}
+	| JLT TK_LB operand[L] TK_RB {
+		switch($L.type){
+			case REG: fw_write("@%d", $L.ival); break;
+			case LABEL:
+				if($L.ival == -1) fw_write("@%s", $L.sval);
+				else              fw_write("@%d", $L.ival);
+		}
+		fw_write("A=M");
+		fw_write("D;JLT");
+	}
 	| JLE operand[L] {
 		switch($L.type){
 			case REG: fw_write("@%d", $L.ival); break;
@@ -709,6 +739,16 @@ mnemonics:
 				if($L.ival == -1) fw_write("@%s", $L.sval);
 				else              fw_write("@%d", $L.ival);
 		}
+		fw_write("D;JLE");
+	}
+	| JLE TK_LB operand[L] TK_RB {
+		switch($L.type){
+			case REG: fw_write("@%d", $L.ival); break;
+			case LABEL:
+				if($L.ival == -1) fw_write("@%s", $L.sval);
+				else              fw_write("@%d", $L.ival);
+		}
+		fw_write("A=M");
 		fw_write("D;JLE");
 	}
 	| JNE operand[L] {
@@ -720,6 +760,16 @@ mnemonics:
 		}
 		fw_write("D;JNE");
 	}
+	| JNE TK_LB operand[L] TK_RB {
+		switch($L.type){
+			case REG: fw_write("@%d", $L.ival); break;
+			case LABEL:
+				if($L.ival == -1) fw_write("@%s", $L.sval);
+				else              fw_write("@%d", $L.ival);
+		}
+		fw_write("A=M");
+		fw_write("D;JNE");
+	}
 	| JEQ operand[L] {
 		switch($L.type){
 			case REG: fw_write("@%d", $L.ival); break;
@@ -729,6 +779,16 @@ mnemonics:
 		}
 		fw_write("D;JEQ");
 	}
+	| JEQ TK_LB operand[L] TK_RB {
+		switch($L.type){
+			case REG: fw_write("@%d", $L.ival); break;
+			case LABEL:
+				if($L.ival == -1) fw_write("@%s", $L.sval);
+				else              fw_write("@%d", $L.ival);
+		}
+		fw_write("A=M");
+		fw_write("D;JEQ");
+	}
 	| JMP operand[L] {
 		switch($L.type){
 			case REG: fw_write("@%d", $L.ival); break;
@@ -736,6 +796,16 @@ mnemonics:
 				if($L.ival == -1) fw_write("@%s", $L.sval);
 				else              fw_write("@%d", $L.ival);
 		}
+		fw_write("0;JMP");
+	}
+	| JMP TK_LB operand[L] TK_RB {
+		switch($L.type){
+			case REG: fw_write("@%d", $L.ival); break;
+			case LABEL:
+				if($L.ival == -1) fw_write("@%s", $L.sval);
+				else              fw_write("@%d", $L.ival);
+		}
+		fw_write("A=M");
 		fw_write("0;JMP");
 	}
 	;
