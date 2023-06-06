@@ -510,10 +510,10 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint16 yyrline[] =
 {
        0,    61,    61,    62,    63,    67,    68,    70,    84,   105,
-     158,   199,   258,   305,   336,   380,   411,   442,   486,   517,
-     561,   592,   636,   650,   678,   687,   697,   706,   716,   725,
-     735,   744,   754,   763,   773,   782,   792,   801,   814,   815,
-     820
+     161,   203,   264,   311,   342,   386,   417,   448,   492,   523,
+     567,   598,   642,   656,   684,   699,   715,   730,   746,   761,
+     777,   792,   808,   823,   839,   854,   870,   885,   904,   905,
+     910
 };
 #endif
 
@@ -1534,7 +1534,9 @@ yyreduce:
 				fw_write("M=D");
 				break;
 			case TP(REG, CONST):
-				fw_write("@%d", (yyvsp[(4) - (4)].val).ival);
+				if((yyvsp[(4) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(4) - (4)].val).sval);
+				else              fw_write("@%d", (yyvsp[(4) - (4)].val).ival);
+
 				fw_write("D=A");
 				fw_write("@%d", (yyvsp[(2) - (4)].val).ival);
 				fw_write("M=D");
@@ -1549,7 +1551,8 @@ yyreduce:
 				fw_write("M=D");
 				break;
 			case TP(LABEL, CONST):
-				fw_write("@%d", (yyvsp[(4) - (4)].val).ival);
+				if((yyvsp[(4) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(4) - (4)].val).sval);
+				else              fw_write("@%d", (yyvsp[(4) - (4)].val).ival);
 				fw_write("D=A");
 
 				if((yyvsp[(2) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (4)].val).sval);
@@ -1614,6 +1617,7 @@ yyreduce:
 				if((yyvsp[(5) - (6)].val).ival == -1) fw_write("@%s", (yyvsp[(5) - (6)].val).sval);
 				else              fw_write("@%d", (yyvsp[(5) - (6)].val).ival);
 
+				fw_write("A=M");
 				fw_write("D=M");
 
 				if((yyvsp[(2) - (6)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (6)].val).sval);
@@ -1637,7 +1641,8 @@ yyreduce:
 				fw_write("M=D");
 				break;
 			case TP(REG, CONST):
-				fw_write("@%d", (yyvsp[(6) - (6)].val).ival);
+				if((yyvsp[(6) - (6)].val).ival == -1) fw_write("@%s", (yyvsp[(6) - (6)].val).sval);
+				else              fw_write("@%d", (yyvsp[(6) - (6)].val).ival);
 				fw_write("D=A");
 				fw_write("@%d", (yyvsp[(3) - (6)].val).ival);
 				fw_write("A=M");
@@ -1654,7 +1659,8 @@ yyreduce:
 				fw_write("M=D");
 				break;
 			case TP(LABEL, CONST):
-				fw_write("@%d", (yyvsp[(6) - (6)].val).ival);
+				if((yyvsp[(6) - (6)].val).ival == -1) fw_write("@%s", (yyvsp[(6) - (6)].val).sval);
+				else              fw_write("@%d", (yyvsp[(6) - (6)].val).ival);
 				fw_write("D=A");
 				
 				if((yyvsp[(3) - (6)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (6)].val).sval);
@@ -2154,10 +2160,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(2) - (2)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case REG:
+				fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
-				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				else {
+					fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("D;JGT");
 	}
@@ -2167,10 +2179,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(3) - (4)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(3) - (4)].val).ival); break;
+			case REG: 
+				fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(3) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (4)].val).sval);
-				else              fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				else{
+					fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("A=M");
 		fw_write("D;JGT");
@@ -2181,10 +2199,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(2) - (2)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case REG:
+				fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
-				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				else {
+					fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("D;JGE");
 	}
@@ -2194,10 +2218,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(3) - (4)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(3) - (4)].val).ival); break;
+			case REG: 
+				fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(3) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (4)].val).sval);
-				else              fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				else{
+					fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("A=M");
 		fw_write("D;JGE");
@@ -2208,10 +2238,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(2) - (2)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case REG:
+				fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
-				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				else {
+					fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("D;JLT");
 	}
@@ -2221,10 +2257,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(3) - (4)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(3) - (4)].val).ival); break;
+			case REG: 
+				fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(3) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (4)].val).sval);
-				else              fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				else{
+					fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("A=M");
 		fw_write("D;JLT");
@@ -2235,10 +2277,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(2) - (2)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case REG:
+				fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
-				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				else {
+					fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("D;JLE");
 	}
@@ -2248,10 +2296,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(3) - (4)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(3) - (4)].val).ival); break;
+			case REG: 
+				fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(3) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (4)].val).sval);
-				else              fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				else{
+					fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("A=M");
 		fw_write("D;JLE");
@@ -2262,10 +2316,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(2) - (2)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case REG:
+				fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
-				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				else {
+					fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("D;JNE");
 	}
@@ -2275,10 +2335,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(3) - (4)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(3) - (4)].val).ival); break;
+			case REG: 
+				fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(3) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (4)].val).sval);
-				else              fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				else{
+					fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("A=M");
 		fw_write("D;JNE");
@@ -2289,10 +2355,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(2) - (2)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case REG:
+				fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
-				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				else {
+					fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("D;JEQ");
 	}
@@ -2302,10 +2374,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(3) - (4)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(3) - (4)].val).ival); break;
+			case REG: 
+				fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(3) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (4)].val).sval);
-				else              fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				else{
+					fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("A=M");
 		fw_write("D;JEQ");
@@ -2316,10 +2394,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(2) - (2)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(2) - (2)].val).ival); break;
+			case REG:
+				fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(2) - (2)].val).ival == -1) fw_write("@%s", (yyvsp[(2) - (2)].val).sval);
-				else              fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+				else {
+					fw_write("@%d", (yyvsp[(2) - (2)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("0;JMP");
 	}
@@ -2329,10 +2413,16 @@ yyreduce:
 
     {
 		switch((yyvsp[(3) - (4)].val).type){
-			case REG: fw_write("@%d", (yyvsp[(3) - (4)].val).ival); break;
+			case REG: 
+				fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				fw_write("A=M");
+				break;
 			case LABEL:
 				if((yyvsp[(3) - (4)].val).ival == -1) fw_write("@%s", (yyvsp[(3) - (4)].val).sval);
-				else              fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+				else{
+					fw_write("@%d", (yyvsp[(3) - (4)].val).ival);
+					fw_write("A=M");
+				}
 		}
 		fw_write("A=M");
 		fw_write("0;JMP");

@@ -163,7 +163,7 @@ extern "C" int st_resolve(const char* name) {
 static FILE* fp;
 
 extern "C" void fw_init() {
-	if (fopen_s(&fp, "test/test.hack", "wb") != 0) {
+	if (fopen_s(&fp, "out.asm", "wb") != 0) {
 		fp = nullptr;
 		return;
 	}
